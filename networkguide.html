@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network TV Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            color: #333;
+        }
+        .network-section {
+            margin-bottom: 20px;
+        }
+        .network-header {
+            background-color: #007bff;
+            color: white;
+            padding: 8px;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+        .schedule {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .program {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+            font-size: 14px;
+        }
+        .program:last-child {
+            border-bottom: none;
+        }
+        .time {
+            font-weight: bold;
+        }
+        .live {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 18px;
+            }
+            .network-header {
+                font-size: 16px;
+            }
+            .program {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Network TV Guide - March 4, 2025</h1>
+    <div id="guideContainer"></div>
+
+    <script>
+        // Sample schedule data (replace with real network data)
+        const networkSchedules = {
+            "ABC": [
+                { time: "2025-03-04T16:00:00-05:00", program: "General Hospital" },
+                { time: "2025-03-04T17:00:00-05:00", program: "The View: Special Edition" },
+                { time: "2025-03-04T18:00:00-05:00", program: "ABC Evening News" }
+            ],
+            "CBS": [
+                { time: "2025-03-04T16:00:00-05:00", program: "The Young and the Restless" },
+                { time: "2025-03-04T17:00:00-05:00", program: "The Price Is Right" },
+                { time: "2025-03-04T18:00:00-05:00", program: "CBS Evening News" }
+            ],
+            "NBC": [
+                { time: "2025-03-04T16:00:00-05:00", program: "Days of Our Lives" },
+                { time: "2025-03-04T17:00:00-05:00", program: "The Kelly Clarkson Show" },
+                { time: "2025-03-04T18:00:00-05:00", program: "NBC Nightly News" }
+            ]
+            // Add more networks like FOX, CW, etc., as needed
+        };
+
+        function renderGuide() {
+            const container = document.getElementById('guideContainer');
+            const now = new Date(); // Current time: March 4, 2025, 4:43 PM EST
+
+            for (const [network, schedule] of Object.entries(networkSchedules)) {
+                const section = document.createElement('div');
+                section.className = 'network-section';
+
+                const header = document.createElement('div');
+                header.className = 'network-header';
+                header.textContent = network;
+                section.appendChild(header);
+
+                const scheduleDiv = document.createElement('div');
+                scheduleDiv.className = 'schedule';
+
+                schedule.forEach(item => {
+                    const itemTime = new Date(item.time);
+                    const endTime = new Date(itemTime.getTime() + 60 * 60 * 1000); // Assume 1-hour slots
+                    const isLive = now >= itemTime && now < endTime;
+
+                    const programDiv = document.createElement('div');
+                    programDiv.className = 'program';
+                    const timeStr = itemTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' });
+                    programDiv.innerHTML = `<span class="time${isLive ? ' live' : ''}">${isLive ? 'Now ' : ''}${timeStr}</span> - ${item.program}`;
+                    scheduleDiv.appendChild(programDiv);
+                });
+
+                section.appendChild(scheduleDiv);
+                container.appendChild(section);
+            }
+        }
+
+        // Render the guide initially and update every minute
+        renderGuide();
+        setInterval(renderGuide, 60000);
+    </script>
+</body>
+</html>
