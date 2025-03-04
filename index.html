@@ -30,6 +30,7 @@
             padding: 10px;
             background-color: #f9f9f9;
             border-radius: 0 0 5px 5px;
+            display: none; /* Hidden by default */
         }
         .subcategory-section {
             margin-bottom: 15px;
@@ -91,5 +92,106 @@
     <script>
         const networkSchedules = {
             "National News": {
-                "Traditional U.S. Cable News Channels": [
-                    {
+                "Streaming & Cable News Channels": [
+                    { name: "Fox News", programs: [
+                        { time: "6:00 PM", title: "Special Report", live: true },
+                        { time: "7:00 PM", title: "The Ingraham Angle", live: true }
+                    ]},
+                    { name: "MSNBC", programs: [
+                        { time: "6:00 PM", title: "The Rachel Maddow Show", live: true },
+                        { time: "7:00 PM", title: "All In with Chris Hayes", live: true }
+                    ]},
+                    { name: "CNN", programs: [
+                        { time: "6:00 PM", title: "The Lead with Jake Tapper", live: true },
+                        { time: "7:00 PM", title: "Anderson Cooper 360", live: true }
+                    ]},
+                    { name: "Newsmax", programs: [
+                        { time: "6:00 PM", title: "Greg Kelly Reports", live: true },
+                        { time: "7:00 PM", title: "Prime News", live: true }
+                    ]},
+                    { name: "LiveNOW from FOX", programs: [
+                        { time: "All Day", title: "Breaking News", live: true }
+                    ]},
+                    { name: "NBC News NOW", programs: [
+                        { time: "All Day", title: "Live News Coverage", live: true }
+                    ]},
+                    { name: "CBS News Streaming Network", programs: [
+                        { time: "All Day", title: "24/7 News", live: true }
+                    ]},
+                    { name: "Real America’s Voice (RAV)", programs: [
+                        { time: "6:00 PM", title: "The War Room with Steve Bannon", live: true },
+                        { time: "7:00 PM", title: "National Report", live: true }
+                    ]}
+                ]
+            }
+        };
+
+        function renderGuide() {
+            const container = document.getElementById('guideContainer');
+            container.innerHTML = '';
+
+            // Create the "National News" category header
+            const nationalNewsSection = document.createElement('div');
+            nationalNewsSection.className = 'category-section';
+
+            const nationalNewsHeader = document.createElement('div');
+            nationalNewsHeader.className = 'category-header';
+            nationalNewsHeader.textContent = 'National News';
+            nationalNewsHeader.onclick = () => toggleSubcategory(nationalNewsHeader.nextElementSibling);
+
+            const nationalNewsContent = document.createElement('div');
+            nationalNewsContent.className = 'subcategory-content';
+
+            // Add subcategories (e.g., Streaming & Cable News Channels)
+            Object.entries(networkSchedules['National News']).forEach(([subcategory, channels]) => {
+                const subcategoryDiv = document.createElement('div');
+                subcategoryDiv.className = 'subcategory-section';
+                
+                const subcategoryHeader = document.createElement('div');
+                subcategoryHeader.className = 'category-header';
+                subcategoryHeader.textContent = subcategory;
+                subcategoryHeader.onclick = () => toggleSubcategory(subcategoryHeader.nextElementSibling);
+
+                const subcategoryContent = document.createElement('div');
+                subcategoryContent.className = 'subcategory-content';
+
+                channels.forEach(channel => {
+                    const channelDiv = document.createElement('div');
+                    channelDiv.className = 'subcategory-section';
+                    channelDiv.innerHTML = `<h3>${channel.name}</h3>`;
+                    
+                    const programsList = document.createElement('div');
+                    channel.programs.forEach(program => {
+                        const programDiv = document.createElement('div');
+                        programDiv.className = 'program';
+                        programDiv.innerHTML = `<span class="time">${program.time}</span> - ${program.title} ${program.live ? '<span class="live">[LIVE]</span>' : ''}`;
+                        programsList.appendChild(programDiv);
+                    });
+                    channelDiv.appendChild(programsList);
+                    subcategoryContent.appendChild(channelDiv);
+                });
+
+                subcategoryDiv.appendChild(subcategoryHeader);
+                subcategoryDiv.appendChild(subcategoryContent);
+                nationalNewsContent.appendChild(subcategoryDiv);
+            });
+
+            nationalNewsSection.appendChild(nationalNewsHeader);
+            nationalNewsSection.appendChild(nationalNewsContent);
+            container.appendChild(nationalNewsSection);
+        }
+
+        function toggleSubcategory(content) {
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+        }
+
+        document.getElementById('homeButton').addEventListener('click', () => {
+            renderGuide();
+            document.getElementById('backButton').style.display = 'none';
+        });
+
+        // Initial render
+        renderGuide();
+    </script>
+</body>
+</html>
