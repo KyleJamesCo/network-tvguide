@@ -74,123 +74,156 @@
     <div id="guideContainer"></div>
 
     <script>
+        // Define program schedules with start times in 24-hour format (e.g., "18:00" for 6:00 PM)
         const networkSchedules = {
             "USA National News Channels": {
                 "Traditional Media Main Networks & Streaming": [
                     { name: "Fox News", programs: [
-                        { time: "6:00 PM", title: "Special Report", live: true },
-                        { time: "7:00 PM", title: "The Ingraham Angle", live: true }
+                        { startTime: "18:00", title: "Special Report", duration: 60 }, // 6:00 PM, 1 hour
+                        { startTime: "19:00", title: "The Ingraham Angle", duration: 60 } // 7:00 PM, 1 hour
                     ]},
                     { name: "MSNBC", programs: [
-                        { time: "6:00 PM", title: "The Rachel Maddow Show", live: true },
-                        { time: "7:00 PM", title: "All In with Chris Hayes", live: true }
+                        { startTime: "18:00", title: "The Rachel Maddow Show", duration: 60 },
+                        { startTime: "19:00", title: "All In with Chris Hayes", duration: 60 }
                     ]},
                     { name: "CNN", programs: [
-                        { time: "6:00 PM", title: "The Lead with Jake Tapper", live: true },
-                        { time: "7:00 PM", title: "Anderson Cooper 360", live: true }
+                        { startTime: "18:00", title: "The Lead with Jake Tapper", duration: 60 },
+                        { startTime: "19:00", title: "Anderson Cooper 360", duration: 60 }
                     ]},
                     { name: "CBS News", programs: [
-                        { time: "6:30 PM", title: "CBS Evening News", live: true },
-                        { time: "7:00 PM", title: "60 Minutes", live: true }
+                        { startTime: "18:30", title: "CBS Evening News", duration: 30 },
+                        { startTime: "19:00", title: "60 Minutes", duration: 60 }
                     ]},
                     { name: "NBC News", programs: [
-                        { time: "6:30 PM", title: "NBC Nightly News", live: true },
-                        { time: "7:00 PM", title: "Meet the Press", live: true }
+                        { startTime: "18:30", title: "NBC Nightly News", duration: 30 },
+                        { startTime: "19:00", title: "Meet the Press", duration: 60 }
                     ]},
                     { name: "ABC News", programs: [
-                        { time: "6:30 PM", title: "ABC World News Tonight", live: true },
-                        { time: "7:00 PM", title: "Good Morning America (Evening Recap)", live: true }
+                        { startTime: "18:30", title: "ABC World News Tonight", duration: 30 },
+                        { startTime: "19:00", title: "Good Morning America (Evening Recap)", duration: 60 }
                     ]},
                     { name: "Bloomberg News", programs: [
-                        { time: "6:00 AM", title: "Bloomberg Daybreak", live: true },
-                        { time: "7:00 AM", title: "Bloomberg Surveillance", live: true }
+                        { startTime: "06:00", title: "Bloomberg Daybreak", duration: 60 },
+                        { startTime: "07:00", title: "Bloomberg Surveillance", duration: 60 }
                     ]},
                     { name: "CNBC", programs: [
-                        { time: "6:00 AM", title: "Squawk Box", live: true },
-                        { time: "7:00 PM", title: "Mad Money", live: true }
+                        { startTime: "06:00", title: "Squawk Box", duration: 180 }, // 3 hours
+                        { startTime: "19:00", title: "Mad Money", duration: 60 }
                     ]},
                     { name: "PBS NewsHour", programs: [
-                        { time: "6:00 PM", title: "PBS NewsHour", live: true },
-                        { time: "8:00 PM", title: "Washington Week", live: true }
+                        { startTime: "18:00", title: "PBS NewsHour", duration: 60 },
+                        { startTime: "20:00", title: "Washington Week", duration: 30 }
                     ]},
                     { name: "C-SPAN", programs: [
-                        { time: "7:00 AM", title: "Washington Journal", live: true },
-                        { time: "8:00 PM", title: "C-SPAN Live Coverage", live: true }
+                        { startTime: "07:00", title: "Washington Journal", duration: 180 }, // 3 hours
+                        { startTime: "20:00", title: "C-SPAN Live Coverage", duration: 60 }
                     ]},
                     { name: "Fox Nation", programs: [
-                        { time: "On Demand", title: "Tucker Carlson Tonight", live: false },
-                        { time: "On Demand", title: "Unfiltered with Dan Bongino", live: false }
+                        { startTime: "On Demand", title: "Tucker Carlson Tonight", duration: 60 },
+                        { startTime: "On Demand", title: "Unfiltered with Dan Bongino", duration: 60 }
                     ]},
                     { name: "MSNBC on Peacock", programs: [
-                        { time: "Live Stream", title: "The Rachel Maddow Show", live: true },
-                        { time: "On Demand", title: "All In with Chris Hayes", live: false }
+                        { startTime: "Live Stream", title: "The Rachel Maddow Show", duration: 60 },
+                        { startTime: "On Demand", title: "All In with Chris Hayes", duration: 60 }
                     ]},
                     { name: "CNN on Max", programs: [
-                        { time: "Live Stream", title: "Anderson Cooper 360", live: true },
-                        { time: "On Demand", title: "The Lead with Jake Tapper", live: false }
+                        { startTime: "Live Stream", title: "Anderson Cooper 360", duration: 60 },
+                        { startTime: "On Demand", title: "The Lead with Jake Tapper", duration: 60 }
                     ]},
                     { name: "CBS News 24/7", programs: [
-                        { time: "All Day", title: "Live News Coverage", live: true }
+                        { startTime: "All Day", title: "Live News Coverage", duration: 1440 } // 24 hours
                     ]},
                     { name: "NBC News NOW", programs: [
-                        { time: "All Day", title: "Live News Coverage", live: true }
+                        { startTime: "All Day", title: "Live News Coverage", duration: 1440 }
                     ]},
                     { name: "ABC News Live", programs: [
-                        { time: "All Day", title: "Live News Coverage", live: true }
+                        { startTime: "All Day", title: "Live News Coverage", duration: 1440 }
                     ]},
                     { name: "LiveNOW from FOX", programs: [
-                        { time: "All Day", title: "Breaking News", live: true }
+                        { startTime: "All Day", title: "Breaking News", duration: 1440 }
                     ]},
                     { name: "CBS News Streaming Network", programs: [
-                        { time: "All Day", title: "24/7 News", live: true }
+                        { startTime: "All Day", title: "24/7 News", duration: 1440 }
                     ]}
                 ]
             },
             "USA National Independent Streaming Channels": {
                 "Independent Streaming News": [
                     { name: "Real America’s Voice (RAV)", programs: [
-                        { time: "6:00 PM", title: "The War Room with Steve Bannon", live: true },
-                        { time: "7:00 PM", title: "National Report", live: true }
+                        { startTime: "18:00", title: "The War Room with Steve Bannon", duration: 60 },
+                        { startTime: "19:00", title: "National Report", duration: 60 }
                     ]},
                     { name: "Newsmax", programs: [
-                        { time: "6:00 PM", title: "Greg Kelly Reports", live: true },
-                        { time: "7:00 PM", title: "Prime News", live: true }
+                        { startTime: "18:00", title: "Greg Kelly Reports", duration: 60 },
+                        { startTime: "19:00", title: "Prime News", duration: 60 }
                     ]},
                     { name: "One America News Network (OANN)", programs: [
-                        { time: "6:00 PM", title: "OANN Live", live: true },
-                        { time: "7:00 PM", title: "Tipping Point", live: true }
+                        { startTime: "18:00", title: "OANN Live", duration: 60 },
+                        { startTime: "19:00", title: "Tipping Point", duration: 60 }
                     ]},
                     { name: "The First", programs: [
-                        { time: "5:00 PM", title: "The Dan Bongino Show", live: true },
-                        { time: "6:00 PM", title: "Real News", live: true }
+                        { startTime: "17:00", title: "The Dan Bongino Show", duration: 60 },
+                        { startTime: "18:00", title: "Real News", duration: 60 }
                     ]},
                     { name: "BlazeTV", programs: [
-                        { time: "5:00 PM", title: "Glenn Beck", live: true },
-                        { time: "6:00 PM", title: "Pat Gray Unleashed", live: true }
+                        { startTime: "17:00", title: "Glenn Beck", duration: 60 },
+                        { startTime: "18:00", title: "Pat Gray Unleashed", duration: 60 }
                     ]},
                     { name: "Epoch Times TV", programs: [
-                        { time: "6:00 PM", title: "American Thought Leaders", live: true },
-                        { time: "7:00 PM", title: "Crossroads", live: true }
+                        { startTime: "18:00", title: "American Thought Leaders", duration: 60 },
+                        { startTime: "19:00", title: "Crossroads", duration: 60 }
                     ]},
                     { name: "Turning Point USA (TPUSA)", programs: [
-                        { time: "5:00 PM", title: "Charlie Kirk Show", live: true },
-                        { time: "6:00 PM", title: "Benny Johnson Show", live: true }
+                        { startTime: "17:00", title: "Charlie Kirk Show", duration: 60 },
+                        { startTime: "18:00", title: "Benny Johnson Show", duration: 60 }
                     ]},
                     { name: "RSBN (Right Side Broadcasting Network)", programs: [
-                        { time: "All Day", title: "RSBN Live", live: true },
-                        { time: "On Demand", title: "Trump Rallies Coverage", live: false }
+                        { startTime: "All Day", title: "RSBN Live", duration: 1440 },
+                        { startTime: "On Demand", title: "Trump Rallies Coverage", duration: 60 }
                     ]},
                     { name: "America’s Voice News", programs: [
-                        { time: "6:00 PM", title: "America’s Voice Live", live: true },
-                        { time: "7:00 PM", title: "War Room Updates", live: true }
+                        { startTime: "18:00", title: "America’s Voice Live", duration: 60 },
+                        { startTime: "19:00", title: "War Room Updates", duration: 60 }
                     ]},
                     { name: "OAN Plus", programs: [
-                        { time: "6:00 PM", title: "OAN Plus Live", live: true },
-                        { time: "7:00 PM", title: "Daily Headlines", live: true }
+                        { startTime: "18:00", title: "OAN Plus Live", duration: 60 },
+                        { startTime: "19:00", title: "Daily Headlines", duration: 60 }
                     ]}
                 ]
             }
         };
+
+        function getCurrentTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+
+        function formatTime(timeStr) {
+            if (timeStr === "All Day" || timeStr === "On Demand" || timeStr === "Live Stream") {
+                return timeStr;
+            }
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            const period = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = hours % 12 || 12;
+            return `${displayHours}:${minutes.toString().padStart(2, '0')} ${period}`;
+        }
+
+        function isProgramLive(startTime, duration) {
+            if (startTime === "All Day" || startTime === "Live Stream") return true;
+            if (startTime === "On Demand") return false;
+
+            const now = new Date();
+            const [startHours, startMinutes] = startTime.split(':').map(Number);
+            const currentHours = now.getHours();
+            const currentMinutes = now.getMinutes();
+            const totalMinutesNow = currentHours * 60 + currentMinutes;
+            const totalMinutesStart = startHours * 60 + startMinutes;
+            const totalMinutesEnd = totalMinutesStart + duration;
+
+            return totalMinutesNow >= totalMinutesStart && totalMinutesNow < totalMinutesEnd;
+        }
 
         function renderGuide() {
             const container = document.getElementById('guideContainer');
@@ -229,9 +262,11 @@
                         
                         const programsList = document.createElement('div');
                         channel.programs.forEach(program => {
+                            const isLive = isProgramLive(program.startTime, program.duration || 60); // Default 60 minutes if duration not specified
+                            const displayTime = formatTime(program.startTime);
                             const programDiv = document.createElement('div');
                             programDiv.className = 'program';
-                            programDiv.innerHTML = `<span class="time">${program.time}</span> - ${program.title} ${program.live ? '<span class="live">[LIVE]</span>' : ''}`;
+                            programDiv.innerHTML = `<span class="time">${displayTime}</span> - ${program.title} ${isLive ? '<span class="live">[LIVE]</span>' : ''}`;
                             programsList.appendChild(programDiv);
                         });
                         channelDiv.appendChild(programsList);
@@ -253,8 +288,9 @@
             content.style.display = content.style.display === 'block' ? 'none' : 'block';
         }
 
-        // Initial render
+        // Initial render and periodic update (every minute)
         renderGuide();
+        setInterval(renderGuide, 60000); // Update every minute to reflect current time
     </script>
 </body>
 </html>
